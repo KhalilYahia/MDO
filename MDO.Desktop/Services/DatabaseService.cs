@@ -15,19 +15,19 @@ namespace MDO.Desktop.Services
 
         public async Task<ApiResponse<string>> ConnectAsync(DatabaseConnectionDto dto)
         {
-            var cmd = _factory.Create(DatabaseOperation.Connect);
-            return (ApiResponse<string>)await cmd.ExecuteAsync(dto);
+            var cmd = _factory.ConnectCommand(dto);
+            return (ApiResponse<string>)await cmd.ExecuteAsync();
         }
 
         public async Task<ApiResponse<string>> GetVersionAsync()
         {
-            var cmd = _factory.Create(DatabaseOperation.GetVersion);
+            var cmd = _factory.GetVersionCommand();
             return (ApiResponse<string>)await cmd.ExecuteAsync();
         }
 
         public async Task<ApiResponse<string>> DisconnectAsync()
         {
-            var cmd = _factory.Create(DatabaseOperation.Disconnect);
+            var cmd = _factory.DisconnectCommand();
             return (ApiResponse<string>)await cmd.ExecuteAsync();
         }
     }

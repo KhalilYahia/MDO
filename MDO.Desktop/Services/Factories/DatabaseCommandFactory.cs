@@ -14,15 +14,20 @@ namespace MDO.Desktop.Services.Factories
             _client = client;
         }
 
-        public IDatabaseCommand Create(DatabaseOperation operation)
+        public IDatabaseCommand<ApiResponse<string>> Create_ConnectCommand(DatabaseConnectionDto dto)
         {
-            return operation switch
-            {
-                DatabaseOperation.Connect => new ConnectCommand(_client),
-                DatabaseOperation.GetVersion => new GetVersionCommand(_client),
-                DatabaseOperation.Disconnect => new DisconnectCommand(_client),
-                _ => throw new InvalidOperationException("Unknown database operation")
-            };
+            return new ConnectCommand(_client, dto);
         }
+
+        public IDatabaseCommand<ApiResponse<string>> Create_GetVersionCommand()
+        {
+            return new GetVersionCommand(_client);
+        }
+
+        public IDatabaseCommand<ApiResponse<string>> Create_DisconnectCommand()
+        {
+            return new DisconnectCommand(_client);
+        }
+        
     }
 }

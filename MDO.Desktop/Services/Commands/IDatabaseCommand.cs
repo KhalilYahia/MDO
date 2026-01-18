@@ -2,8 +2,8 @@
 
 namespace MDO.Desktop.Services.Commands
 {
-    public interface IDatabaseCommand
+    public interface IDatabaseCommand<TResult>
     {
-        Task<object> ExecuteAsync(DatabaseConnectionDto dto = null);
+        Task<TResult> ExecuteAsync();
     }
 }

@@ -7,15 +7,22 @@ using System.Threading.Tasks;
 
 namespace MDO.Desktop.Services.Commands
 {
-    public class ConnectCommand : IDatabaseCommand
+    public class ConnectCommand : IDatabaseCommand<ApiResponse<string>>
     {
         private readonly IHttpClientWrapper _client;
+        private readonly DatabaseConnectionDto _dto;
 
-        public ConnectCommand(IHttpClientWrapper client) => _client = client;
-
-        public async Task<object> ExecuteAsync(DatabaseConnectionDto dto)
+        public ConnectCommand(IHttpClientWrapper client, DatabaseConnectionDto dto) 
         {
-            var result = await _client.SendRequestAsync<string>("connect", HttpMethod.Post, dto);
+            _client = client;
+            _dto = dto;
+        }
+            
+            
+
+        public async Task<ApiResponse<string>> ExecuteAsync()
+        {
+            var result = await _client.SendRequestAsync<string>("connect", HttpMethod.Post, _dto);
             return result;
         }
     }

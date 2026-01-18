@@ -9,13 +9,13 @@ using System.Threading.Tasks;
 namespace MDO.Desktop.Services.Commands
 {
 
-    public class DisconnectCommand : IDatabaseCommand
+    public class DisconnectCommand : IDatabaseCommand<ApiResponse<string>>
     {
         private readonly IHttpClientWrapper _client;
 
         public DisconnectCommand(IHttpClientWrapper client) => _client = client;
 
-        public async Task<object> ExecuteAsync(DatabaseConnectionDto dto = null)
+        public async Task<ApiResponse<string>> ExecuteAsync()
         {
             return await _client.SendRequestAsync<string>("disconnect", HttpMethod.Post);
         }
